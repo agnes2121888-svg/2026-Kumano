@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>熊野古道 × 京都跨年之旅</title>
+<style>
+:root{
+  --bg:#f6f1e7;--card:#fffdf8;--ink:#2a2420;--muted:#7b7067;--line:#dccfbc;
+  --accent:#b8322a;--accent-ink:#fff;--accent-soft:#f6e0da;
+  --gold-soft:#f8eecf;--gold-ink:#7a5a0a;
+  --shadow:0 1px 2px rgba(60,40,20,.08),0 6px 20px rgba(60,40,20,.06);
+  color-scheme:light;
+}
+@media(prefers-color-scheme:dark){
+  :root{
+    --bg:#1a1613;--card:#252019;--ink:#f0e9df;--muted:#a89d92;--line:#3b342c;
+    --accent:#e5604f;--accent-ink:#1a1613;--accent-soft:#3a2420;
+    --gold-soft:#34301a;--gold-ink:#e8c872;
+    --shadow:0 1px 2px rgba(0,0,0,.4);
+    color-scheme:dark;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:16px/1.65 "Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px calc(96px + env(safe-area-inset-bottom,0px))}
+
+/* top bar */
+.topbar{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line);
+  padding:calc(8px + env(safe-area-inset-top,0px)) 16px 8px}
+.topbar-in{max-width:760px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.brand{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.tools{display:flex;gap:8px;align-items:center;position:relative}
+.btn{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:6px 14px;cursor:pointer;
+  font-size:14px;line-height:1.4;list-style:none;white-space:nowrap}
+.btn::-webkit-details-marker{display:none}
+.btn.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn.danger{color:var(--accent);border-color:var(--accent)}
+.menu{position:relative}
+.pop{position:absolute;right:0;top:calc(100% + 8px);width:250px;background:var(--card);border:1px solid var(--line);
+  border-radius:14px;box-shadow:var(--shadow);padding:8px;display:flex;flex-direction:column;gap:2px}
+.pop button{text-align:left;background:none;border:0;padding:10px 12px;border-radius:8px;cursor:pointer}
+.pop button:hover{background:var(--accent-soft)}
+.pop p{margin:6px 12px 4px;font-size:12.5px;color:var(--muted);line-height:1.5}
+.editbar{background:var(--accent-soft);color:var(--accent);font-size:13px;padding:8px 16px;text-align:center}
+
+/* landing */
+.hero{padding:34px 0 8px}
+.kicker{letter-spacing:.25em;font-size:12px;color:var(--accent);font-weight:700}
+.hero h1{margin:6px 0 4px;font:700 clamp(28px,7vw,40px)/1.2 "Noto Serif TC","Songti TC","PMingLiU",serif}
+.range{color:var(--muted);margin:0 0 4px}
+.jump{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:18px 0 6px;
+  background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.jump span{font-weight:600}
+.jump input{width:auto;flex:1;min-width:150px}
+.month{margin:26px 0 10px;font-weight:700;color:var(--muted);letter-spacing:.08em;font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.card{display:flex;flex-direction:column;gap:2px;background:var(--card);border:1px solid var(--line);
+  border-radius:16px;padding:14px;box-shadow:var(--shadow);min-height:132px;position:relative}
+.card:active{transform:scale(.98)}
+.card.today{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent)}
+.cd{display:flex;align-items:baseline;gap:8px}
+.num{font:700 34px/1 "Noto Serif TC","Songti TC",serif;color:var(--accent)}
+.wk{font-size:13px;color:var(--muted)}
+.ct{font-size:12px;color:var(--muted);margin-top:4px}
+.cti{font-size:14.5px;font-weight:600;line-height:1.4;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.badge{position:absolute;top:10px;right:10px;background:var(--accent);color:var(--accent-ink);font-size:11px;padding:1px 8px;border-radius:999px}
+
+/* day */
+.dayhead{padding:24px 0 14px}
+.bigdate{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.bigdate .n{font:700 44px/1 "Noto Serif TC","Songti TC",serif;color:var(--accent)}
+.chip{font-size:12.5px;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:1px 10px;color:var(--muted)}
+.chip.tag{background:var(--accent-soft);border-color:transparent;color:var(--accent)}
+.dayhead h2{margin:10px 0 6px;font:700 clamp(20px,5vw,26px)/1.35 "Noto Serif TC","Songti TC",serif}
+.lodging{margin:0;color:var(--muted);font-size:14.5px}
+
+ol.tl{list-style:none;margin:8px 0 0;padding:0}
+li.it{display:grid;grid-template-columns:78px 1fr}
+.tm{text-align:right;padding-right:14px;font-variant-numeric:tabular-nums;font-weight:700;font-size:14px;line-height:1.35;padding-top:3px}
+.tm small{display:block;font-weight:400;color:var(--muted);font-size:12.5px}
+.body{border-left:2px solid var(--line);padding:0 0 18px 18px;position:relative;min-width:0}
+li.main .body::before{content:"";position:absolute;left:-6px;top:7px;width:10px;height:10px;border-radius:50%;
+  background:var(--accent);box-shadow:0 0 0 3px var(--bg)}
+.tx{white-space:pre-wrap;overflow-wrap:anywhere}
+li.sub .body{padding-bottom:8px;margin-top:-10px;font-size:14.5px;color:var(--muted)}
+li.star .tx{display:inline-block;background:var(--gold-soft);color:var(--gold-ink);border-radius:10px;padding:6px 12px;font-size:14.5px}
+li.star .body,li.box .body{padding-top:2px}
+li.box .tx{display:block;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 14px;font-size:14.5px}
+li.box .bt{font-weight:700;margin-bottom:4px;color:var(--accent)}
+.hl{color:var(--accent);font-weight:600}
+li.sub .hl{font-weight:600}
+
+.sec{margin-top:26px}
+.sec h3{margin:0 0 8px;font-size:16px}
+.note{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 16px;white-space:pre-wrap;overflow-wrap:anywhere;font-size:15px}
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top;white-space:pre-wrap;overflow-wrap:anywhere}
+th{background:var(--accent-soft);color:var(--accent);font-weight:700;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+
+.daynav{position:fixed;left:0;right:0;bottom:0;z-index:15;background:var(--bg);border-top:1px solid var(--line);
+  padding:8px 16px calc(8px + env(safe-area-inset-bottom,0px))}
+.daynav-in{max-width:760px;margin:0 auto;display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center}
+.daynav a,.daynav span.dis{display:block;padding:9px 10px;border-radius:12px;border:1px solid var(--line);background:var(--card);
+  font-size:14px;text-align:center;white-space:nowrap}
+.daynav span.dis{opacity:.35}
+.daynav .mid{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);padding:9px 16px}
+
+/* editing */
+input,textarea,select{width:100%;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:7px 9px}
+textarea{resize:vertical;line-height:1.55;overflow:hidden}
+input:focus,textarea:focus,select:focus{outline:2px solid var(--accent);outline-offset:0}
+.fld{display:block;margin:0 0 10px}
+.fld>span{display:block;font-size:12.5px;color:var(--muted);margin-bottom:3px}
+.ed-it{list-style:none;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px;margin:0 0 10px}
+.ed-row{display:flex;gap:6px;margin-bottom:6px;align-items:center}
+.ed-row select{width:auto;flex:none}
+.ed-row .tin{flex:1;min-width:0}
+.mv{display:flex;gap:4px;flex:none}
+.mv button,.mini{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:4px 9px;cursor:pointer;font-size:13px}
+.addrow{display:flex;gap:8px;margin:12px 0;align-items:center}
+.addrow select{width:auto}
+.tbl-ed{margin-top:18px}
+.tbl-ed td,.tbl-ed th{padding:4px;min-width:120px}
+.tbl-ed textarea,.tbl-ed input{font-size:13.5px;padding:5px 7px}
+.row-tools{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+
+#toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);
+  background:var(--ink);color:var(--bg);padding:9px 16px;border-radius:999px;font-size:14px;opacity:0;pointer-events:none;
+  transition:.25s;z-index:50;max-width:90vw}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+
+@media(max-width:480px){
+  li.it{grid-template-columns:66px 1fr}
+  .tm{padding-right:10px;font-size:13px}
+  .body{padding-left:14px}
+}
+@media print{.topbar,.daynav,.editbar,#toast{display:none!important}body{background:#fff;color:#000}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="toast" role="status"></div>
+<noscript><p style="padding:24px">請開啟 JavaScript 以檢視行程。</p></noscript>
+
+<script id="seed" type="application/json">{
+ "rev": 0,
+ "title": "熊野古道 × 京都跨年之旅",
+ "subtitle": "選擇日期，查看當天行程",
+ "days": [
+  {
+   "date": "2026-12-23",
+   "tag": "出發日",
+   "title": "台北 ✈ 名古屋",
+   "lodging": "",
+   "items": [
+    {
+     "kind": "i",
+     "time": "14:45",
+     "text": "星宇航空　台北出發"
+    },
+    {
+     "kind": "i",
+     "time": "18:30",
+     "text": "抵達名古屋"
+    }
+   ],
+   "tables": [],
+   "transport": "",
+   "meals": ""
+  },
+  {
+   "date": "2026-12-24",
+   "tag": "團 D1",
+   "title": "名古屋 → 熊野市 → 新宮",
+   "lodging": "",
+   "items": [
+    {
+     "kind": "i",
+     "time": "07:00",
+     "text": "名古屋車站太閣通集合"
+    },
+    {
+     "kind": "i",
+     "time": "08:02",
+     "text": "熊野市"
+    },
+    {
+     "kind": "i",
+     "time": "",
+     "text": "松本峠"
+    },
+    {
+     "kind": "i",
+     "time": "",
+     "text": "鬼城"
+    },
+    {
+     "kind": "i",
+     "time": "",
+     "text": "新宮"
+    }
+   ],
+   "tables": [],
+   "transport": "",
+   "meals": ""
+  },
+  {
+   "date": "2026-12-25",
+   "tag": "團 D2",
+   "title": "熊野川遊船・神倉神社・熊野速玉大社",
+   "lodging": "",
+   "items": [
+    {
+     "kind": "i",
+     "time": "",
+     "text": "新宮"
+    },
+    {
+     "kind": "i",
+     "time": "",
+     "text": "熊野川遊船"
+    },
+    {
+     "kind": "i",
+     "time": "",
+     "text": "神倉神社"
+    },
+    {
+     "kind": "i",
+     "time": "",
+     "text": "熊野速玉大社"
+    },
+    {
+     "kind": "i",
+     "time": "",
+     "text": "回新宮"
+    }
+   ],
+   "tables": [],
+   "transport": "",
+   "meals": ""
+  },
+  {
+   "date": "2026-12-26",
+   "tag": "團 D3",
+   "title": "熊野那智大社與那智瀑布",
+   "lodging": "浦島飯店（紀伊勝浦）",
+   "items": [
+    {
+     "kind": "i",
+     "time": "",
+     "text": "新宮"
+    },
+    {
+     "kind": "i",
+     "time": "",
+     "text": "熊野那智大社"
+    },
+    {
+     "kind": "i",
+     "time": "",
+     "text": "那智瀑布"
+    },
+    {
+     "kind": "i",
+     "time": "",
+     "text": "紀伊勝浦（浦島飯店）"
+    }
+   ],
+   "tables": [],
+   "transport": "",
+   "meals": ""
+  },
+  {
+   "date": "2026-12-27",
+   "tag": "團 D4",
+   "title": "新宮 → 大齋原 → 川湯溫泉",
+   "lodging": "川湯溫泉",
+   "items": [
+    {
+     "kind": "i",
+     "time": "",
+     "text": "紀伊勝浦"
+    },
+    {
+     "kind": "i",
+     "time": "",
+     "text": "新宮"
+    },
+    {
+     "kind": "i",
+     "time": "",
+     "text": "大齋原"
+    },
+    {
+     "kind": "i",
+     "time": "",
+     "text": "川湯溫泉"
+    }
+   ],
+   "tables": [],
+   "transport": "",
+   "meals": ""
+  },
+  {
+   "date": "2026-12-28",
+   "tag": "團 D5",
+   "title": "發心門王子與熊野本宮大社",
+   "lodging": "川湯溫泉",
+   "items": [
+    {
+     "kind": "i",
+     "time": "",
+     "text": "川湯溫泉"
+    },
+    {
+     "kind": "i",
+     "time": "",
+     "text": "發心門王子"
+    },
+    {
+     "kind": "i",
+     "time": "",
+     "text": "熊野本宮大社"
+    },
+    {
+     "kind": "i",
+     "time": "",
+     "text": "回川湯溫泉"
+    }
+   ],
+   "tables": [],
+   "transport": "",
+   "meals": ""
+  },
+  {
+   "date": "2026-12-29",
+   "tag": "團 D6",
+   "title": "紀伊田邊 → 和歌山城 → 京都",
+   "lodging": "京都八條都酒店",
+   "items": [
+    {
+     "kind": "i",
+     "time": "",
+     "text": "川湯溫泉"
+    },
+    {
+     "kind": "i",
+     "time": "",
+     "text": "紀伊田邊"
+    },
+    {
+     "kind": "i",
+     "time": "",
+     "text": "和歌山城"
+    },
+    {
+     "kind": "i",
+     "time": "17:50",
+     "text": "【和歌山站】出發 ➔ 搭乘：特急黑潮 32 號（指定席）"
+    },
+    {
+     "kind": "i",
+     "time": "18:50",
+     "text": "【新大阪站】抵達"
+    },
+    {
+     "kind": "s",
+     "time": "",
+     "text": "黑潮號下車（3 號月台）：下車後，在月台上尋找「エレベーター (Elevator / 電梯)」。"
+    },
+    {
+     "kind": "s",
+     "time": "",
+     "text": "搭電梯上 3 樓（車站大廳）：搭電梯上去 3 樓改札內大廳後，一出電梯，跟著頭頂上的黃色「JR線・1番のりば（1號月台）」。"
+    },
+    {
+     "kind": "s",
+     "time": "",
+     "text": "搭電梯下 1 號月台（HARUKA 號）：走到 1 號月台的電梯口，搭電梯降回 1 樓月台。"
+    },
+    {
+     "kind": "i",
+     "time": "19:04",
+     "text": "【新大阪站】出發 ➔ 搭乘：特急 HARUKA 50 號（指定席）"
+    },
+    {
+     "kind": "i",
+     "time": "19:34",
+     "text": "【京都車站】準時平安抵達！（車程 30 分鐘）"
+    }
+   ],
+   "tables": [],
+   "transport": "在 JR 西日本官網線上訂票，直接搜尋出發地「和歌山 (Wakayama)」➔ 目的地「京都 (Kyoto)」。系統會自動跑出「黑潮號 ➔ 新大阪轉乘 ➔ HARUKA號」的聯程組合，並自動將第二段 HARUKA 的特急指定席座位費直接打 5 折（特急券半價優惠）！\n11/29 到 JR 西日本官網搶 12/29 和歌山到京都的全程特急指定席（黑潮號＋HARUKA號），記得手動勾選「最後一排座位」。",
+   "meals": ""
+  },
+  {
+   "date": "2026-12-30",
+   "tag": "京都 Day 1",
+   "title": "金閣寺、雙賀茂神社與鴨川落日",
+   "lodging": "京都八條都酒店（含早餐）",
+   "items": [
+    {
+     "kind": "i",
+     "time": "08:00 - 09:00",
+     "text": "【交通】京都車站搭乘「地鐵烏丸線」至「北大路站」，轉乘市巴士 205 號（或直接搭計程車）前往金閣寺。"
+    },
+    {
+     "kind": "i",
+     "time": "09:00 - 10:00",
+     "text": "【金閣寺】09:00 開門立刻入園。此時陽光角度最能拍到美麗的金箔鏡湖池倒影，且能完美避開 10:30 後的團客潮。"
+    },
+    {
+     "kind": "i",
+     "time": "10:00 - 11:00",
+     "text": "【交通】搭乘「市巴士 46 號」前往 Kamigamo Kirin 餐廳。"
+    },
+    {
+     "kind": "i",
+     "time": "11:00 - 12:30",
+     "text": "【午餐】Kamigamo Kirin（已訂位）。"
+    },
+    {
+     "kind": "i",
+     "time": "12:45 - 13:45",
+     "text": "【上賀茂神社】步行前往。"
+    },
+    {
+     "kind": "g",
+     "time": "",
+     "text": "🌟 五社巡禮第 1 站：購入專用色紙並蓋第 1 個章，購買新年限定「破魔矢」。"
+    },
+    {
+     "kind": "i",
+     "time": "13:45 - 14:30",
+     "text": "【交通】步行 1.7K（約 20-25 分鐘）至「北山站」，逛【毛線店】la droguerie。轉乘「市巴士 4 號」至下鴨神社（入口左側神山湧水咖啡）。"
+    },
+    {
+     "kind": "i",
+     "time": "14:30 - 15:40",
+     "text": "【下鴨神社】參拜並購買超人氣的「蕾絲御守」。"
+    },
+    {
+     "kind": "i",
+     "time": "15:30 - 16:10",
+     "text": "【特色下午茶】さるや (Saruya)　在神社境內享用經典「申餅」與熱茶，暖暖身體。"
+    },
+    {
+     "kind": "i",
+     "time": "16:10 - 16:40",
+     "text": "【鴨川三角洲】步行穿過「糾之森」前往。在落日時分體驗跳烏龜石、拍照（注意冬日防滑）。"
+    },
+    {
+     "kind": "i",
+     "time": "16:40 - 19:00",
+     "text": "【惠文社 一乘寺店（19:00 打烊）】鴨川三角洲東側出口過馬路在叡山電鐵「出町柳站」，搭往八瀨比叡山口或鞍馬方向的電車，3 站到「一乘寺站」。可先在「出町柳站」或「一乘寺站」用餐再去逛書店。"
+    },
+    {
+     "kind": "i",
+     "time": "19:15",
+     "text": "【回飯店】交通方式（三選一）"
+    },
+    {
+     "kind": "s",
+     "time": "",
+     "text": "A．走 9 分鐘到高野搭巴士 206 到烏丸七条，約 47 分鐘"
+    },
+    {
+     "kind": "s",
+     "time": "",
+     "text": "B．「一乘寺站」搭叡山電鐵本線普通到出町柳，轉京阪本線準急行（淀屋橋方向）到東福寺，轉奈良線普通到京都，約 39 分鐘"
+    },
+    {
+     "kind": "s",
+     "time": "",
+     "text": "C．走 6 分鐘到赤宮搭巴士 19 到京都站前，約 46 分鐘"
+    }
+   ],
+   "tables": [],
+   "transport": "【 IC 卡】",
+   "meals": "🏮 中午　Kamigamo Kirin 需預訂"
+  },
+  {
+   "date": "2026-12-31",
+   "tag": "京都 Day 2",
+   "title": "宇治跨年大作戰與伏見稻荷屋台",
+   "lodging": "京都八條都酒店",
+   "items": [
+    {
+     "kind": "i",
+     "time": "07:40 - 08:21",
+     "text": "【交通】京都車站搭 08:03【JR 奈良線】到 JR 宇治站。"
+    },
+    {
+     "kind": "i",
+     "time": "08:21 - 08:50",
+     "text": "🌟【宇治卡位雙贏策略】"
+    },
+    {
+     "kind": "s",
+     "time": "",
+     "text": "2 人出站後先步行 2 分鐘到「中村藤吉本店」（10:00 營業）抽取內用號碼牌。抽完後立刻快步前往平等院（約 08:50 抵達）。"
+    },
+    {
+     "kind": "s",
+     "time": "",
+     "text": "2 人到平等院，08:45 開放正門售票亭買 4 張票，09:10 開放庭園內購票，排隊登記 09:30 第一批鳳凰堂內部參觀。參觀後漫步鳳翔館與庭園。"
+    },
+    {
+     "kind": "b",
+     "time": "A / B 組分工",
+     "text": "A組（2人）：JR 出站到斜對面的「中村藤吉本店」排隊，09:00～09:30 發券機抽 4 人的號碼牌。目標拿到 15 號～25 號（第二輪入座的號碼）。\nB組（2人）：直接快步走 10 多分鐘前往「平等院大門售票處」排隊。\n08:45 平等院開門，B組買 4 張門票後，方案1：用手機拍 2 張門票的條碼給 A組；方案2：1 人在入口閘門內把實體票遞給 A組。\nB組拿實體票入院後直接到「鳳凰堂內部參觀受理處」排隊。\n09:00-09:10 會合：A組藤吉抽完牌後到平等院大門入園，去池畔會合，「購買鳳凰堂參觀券時，全員須在現場排隊」，買 09:30 第一批鳳凰堂參觀券！\n掃描號碼牌上的 QR Code 監控中村藤吉，「前面只剩 3～5 組」時，從平等院往外離開。"
+    },
+    {
+     "kind": "i",
+     "time": "09:00 - 11:20",
+     "text": "逛【平等院】"
+    },
+    {
+     "kind": "i",
+     "time": "11:30 - 13:00",
+     "text": "【午餐】中村藤吉本店　招牌抹茶素麵與生茶果凍。"
+    },
+    {
+     "kind": "i",
+     "time": "13:00 - 15:10",
+     "text": "【宇治川散步】步行前往宇治川對岸，參拜全日本最古老神社建築【宇治上神社】與冬季幽靜的【興聖寺】。返回 JR 宇治站。"
+    },
+    {
+     "kind": "i",
+     "time": "15:30 - 16:00",
+     "text": "【交通】搭乘【JR 奈良線普通車】由 JR 宇治站至 JR 稻荷站。"
+    },
+    {
+     "kind": "i",
+     "time": "16:00 - 17:40",
+     "text": "【伏見稻荷大社】"
+    },
+    {
+     "kind": "s",
+     "time": "",
+     "text": "16:00 - 16:20｜JR 稻荷站出站 ➔ 樓門與本殿參拜（約 20 分鐘）"
+    },
+    {
+     "kind": "s",
+     "time": "",
+     "text": "16:20 - 17:00｜千本鳥居入口段散步拍照（約 40 分鐘），從本殿後方往上走，到「奧社奉拜所（輕重石所在處）」再折返下山。這段最精華的路程來回慢慢走加拍照，約 35 到 40 分就非常足夠，16:45 左右天色微暗、燈籠亮起時拍照最美。"
+    },
+    {
+     "kind": "s",
+     "time": "",
+     "text": "17:00 - 17:35｜屋台市集逛街吃熱食（約 35 分鐘）。下山後沿著參道兩旁（主要集中在裡參道與本町通一帶）逛屋台。"
+    },
+    {
+     "kind": "s",
+     "time": "",
+     "text": "17:35 - 17:45｜步行至 JR 稻荷站搭車。屋台區走到 JR 稻荷站只要 3 到 5 分鐘。"
+    },
+    {
+     "kind": "i",
+     "time": "17:50",
+     "text": "【交通】搭乘【JR 奈良線】返回京都車站。5 分鐘即達京都車站。"
+    },
+    {
+     "kind": "i",
+     "time": "18:05",
+     "text": "🛍️【跨年晚餐重要採買】"
+    },
+    {
+     "kind": "s",
+     "time": "",
+     "text": "🍜 買食物　AEON MALL KYOTO（永旺夢樂城京都）：1 樓超市買草莓、熟食與泡麵；京都車站八條口 1 樓 ASTY Kyoto（アスティ京都）：志津屋（SIZUYA）麵包。"
+    },
+    {
+     "kind": "s",
+     "time": "",
+     "text": "🍜 用餐　AEON MALL KYOTO 4 樓美食街，車站八條口 1 樓「ASTY Kyoto」餐飲區。"
+    },
+    {
+     "kind": "b",
+     "time": "跨年夜選項（原 Excel 備案）",
+     "text": "Ａ：京都車站大廈 4 樓的「室外大階梯 (Grand Staircase)」\nＢ：【東寺（教王護國寺）聽除夜之鐘】（步行 12 分鐘）"
+    }
+   ],
+   "tables": [],
+   "transport": "",
+   "meals": "Inahiko Coffee　伏見稻荷大社"
+  },
+  {
+   "date": "2027-01-01",
+   "tag": "京都 Day 3",
+   "title": "新春初詣、西東本願寺與純白午茶",
+   "lodging": "京都八條都酒店（含早餐）",
+   "items": [
+    {
+     "kind": "i",
+     "time": "09:00 - 10:15",
+     "text": "【城南宮（初詣）】"
+    },
+    {
+     "kind": "s",
+     "time": "",
+     "text": "從八條都酒店搭計程車（約 10-15 分鐘，車資約 ￥1,800~2,200）。"
+    },
+    {
+     "kind": "g",
+     "time": "",
+     "text": "🌟 五社巡禮第 2 站：祈求新春方除與交通安全"
+    },
+    {
+     "kind": "i",
+     "time": "10:15 - 11:10",
+     "text": "【鳥羽離宮】步行順遊歷史古蹟。"
+    },
+    {
+     "kind": "i",
+     "time": "11:10 - 13:00",
+     "text": "【交通＆午餐】於城南宮搭乘「市巴士 淀京都線 26」返回京都八條口（⚠️ 元旦初詣人車極多，道路易塞車，若巴士難等請改呼叫計程車）。抵達京都車站後享用元旦午餐。"
+    },
+    {
+     "kind": "i",
+     "time": "13:00 - 15:30",
+     "text": "【西東本願寺散步】由京都車站 C3 出口走西洞院通轉正面通。沿途欣賞【本願寺傳道院】的獨特建築，參拜【西本願寺】與【東本願寺】。"
+    },
+    {
+     "kind": "i",
+     "time": "15:30 - 16:15",
+     "text": "【Vermillion - station】（不接受預約）在東本願寺對面，西西里及熱拿鐵 / 平白咖啡。"
+    },
+    {
+     "kind": "i",
+     "time": "16:15 - 18:00",
+     "text": "【京都塔 SANDO】步行至京都車站北口，逛京都塔 SANDO 1 樓挑選質感伴手禮。"
+    },
+    {
+     "kind": "i",
+     "time": "19:00",
+     "text": "【MERCYVeganFactory　KYOTO STATION】晚餐（已訂位）"
+    },
+    {
+     "kind": "i",
+     "time": "",
+     "text": "【登塔看元旦夜景】登上京都鐵塔展望台，俯瞰 2027 年元旦夜景。下樓時順路再回味車站大階梯的冬季 LED 燈光秀。步行 5 分鐘輕鬆回八條都酒店休息。"
+    }
+   ],
+   "tables": [],
+   "transport": "計程車 ＋【 IC 卡】",
+   "meals": ""
+  },
+  {
+   "date": "2027-01-02",
+   "tag": "京都 Day 4",
+   "title": "嵐山竹林、天龍寺精進料理、松尾大社與河原町",
+   "lodging": "京都八條都酒店（含早餐）",
+   "items": [
+    {
+     "kind": "i",
+     "time": "08:00 - 08:20",
+     "text": "【交通】京都車站搭乘【JR 山陰本線】至「JR 嵯峨嵐山站」。"
+    },
+    {
+     "kind": "i",
+     "time": "08:20 - 09:30",
+     "text": "【嵐山清晨散步】步行經過【渡月橋】再散步至【竹林小徑】。清晨微涼、人潮最少，最適合拍照。"
+    },
+    {
+     "kind": "i",
+     "time": "09:30 - 11:00",
+     "text": "【天龍寺】從正門進入參拜，賞曹源池庭園（停留約 1.5 小時）。"
+    },
+    {
+     "kind": "i",
+     "time": "11:00 - 12:15",
+     "text": "【精進料理午餐】篩月（已訂位）。"
+    },
+    {
+     "kind": "i",
+     "time": "12:15 - 13:15",
+     "text": "【嵐山大街】邊逛邊散步至「阪急嵐山站」。"
+    },
+    {
+     "kind": "i",
+     "time": "13:20 - 14:30",
+     "text": "【松尾大社】搭【阪急嵐山線】（車程 4 分鐘）至「松尾大社站」。"
+    },
+    {
+     "kind": "g",
+     "time": "",
+     "text": "🌟 五社巡禮第 3 站：體驗新年限定的「拉弓射箭樽占卜」，十分有趣！"
+    },
+    {
+     "kind": "i",
+     "time": "14:35 - 15:10",
+     "text": "【新風館 ShinPuhKan】（逛街＋下午茶）"
+    },
+    {
+     "kind": "s",
+     "time": "",
+     "text": "【交通】搭阪急嵐山線至桂站，轉阪急京都線至「烏丸站」（走地下通道轉地下鐵烏丸線往「烏丸御池站」方向南改札口，直接連通新風館地下入口）。"
+    },
+    {
+     "kind": "i",
+     "time": "17:20 - 18:00",
+     "text": "【京都文化博物館 別館（舊日本銀行）（19:30 打烊）】步行 5 分鐘可到。參觀動線：戶外紅磚外觀拍照＋挑高木造營業大廳＋金庫大門與中庭。"
+    },
+    {
+     "kind": "i",
+     "time": "18:00",
+     "text": "晚餐【mumokuteki cafe&foods】（100% 純素）／大丸百貨 8 樓 よしむら／都野菜 賀茂"
+    }
+   ],
+   "tables": [],
+   "transport": "【 IC 卡】\nJR 山陰本線（嵯峨野線）直達「嵯峨嵐山站」。\n從嵐山前往松尾大社，可搭乘阪急嵐山線，僅需 2 站即可直達「松尾大社站」。\nJR (240) ＋ 阪急 (170) ＋ 巴士/市電回市區 (約 230)，直接刷卡。",
+   "meals": "午茶建議\n🌟 方案 A：【和咖啡 季の音】出阪急剪票口走「5 號出口」到地面，旁邊的迪桑特（DESCENTE）大樓，「季の音」在 4 樓。\n🌟 方案 B：【さらさ花遊小路】走「9 號出口」（靠近高島屋百貨）。上來走右邊「花遊小路」步行約 1 分鐘（約 60 公尺），老宅改建的「さらさ花遊小路」。\n🌟 方案 C：【宇治久兵衛】從地下道走到最靠近河原町大馬路的「3 號出口」。出站後沿河原町通向北步行大約 4-5 分鐘。沿途兩旁全是 1 月 2 日大開門的新春福袋店家，可以邊走邊逛，直接衝進店裡吃超濃郁的抹茶慕斯冰！"
+  },
+  {
+   "date": "2027-01-03",
+   "tag": "京都 Day 5",
+   "title": "清水寺古街、八坂與平安神宮五社圓滿（滿願）",
+   "lodging": "京都八條都酒店（含早餐）",
+   "items": [
+    {
+     "kind": "i",
+     "time": "07:30 - 10:30",
+     "text": "【清水寺晨間參拜】（二、三年坂及星巴克）"
+    },
+    {
+     "kind": "s",
+     "time": "",
+     "text": "清晨搭計程車（約 10-15 分鐘，車資約 ￥1,500~1,800）直達清水寺。"
+    },
+    {
+     "kind": "i",
+     "time": "10:30 - 11:30",
+     "text": "【八坂神社】沿古街一路步行向下至八坂神社。"
+    },
+    {
+     "kind": "g",
+     "time": "",
+     "text": "🌟 五社巡禮第 4 站：祈求新春開運。"
+    },
+    {
+     "kind": "i",
+     "time": "11:30 - 13:30",
+     "text": "午餐【Modern Terrace（Kyoto Modern Terrace）】＋【京瓷美術館外觀與免費空間散步】京瓷美術館正面著名的「玻璃絲帶」中庭拍照，並搭電梯上免費開放的屋頂露台眺望東山風景。"
+    },
+    {
+     "kind": "s",
+     "time": "",
+     "text": "先去（岡崎 蔦屋書店棟）2 樓 Modern Terrace（Kyoto Modern Terrace）、ROHM Theatre Kyoto 抽號碼牌，再去逛京瓷美術館。"
+    },
+    {
+     "kind": "s",
+     "time": "",
+     "text": "午餐替代方案：権太呂 岡崎店 (Gontaro Okazaki) ／ Padma (100% 純素有機定食・鴨川河景)"
+    },
+    {
+     "kind": "i",
+     "time": "14:00 - 15:45",
+     "text": "【平安神宮（五社巡禮大圓滿！）】步行前往。"
+    },
+    {
+     "kind": "g",
+     "time": "",
+     "text": "🌟 五社巡禮第 5 站（終點站）：集滿最後一個御朱印！"
+    },
+    {
+     "kind": "g",
+     "time": "",
+     "text": "🎁 重要提醒：集滿五社章後，記得在櫃檯兌換專屬的「五社巡禮滿願紀念禮」（通常為當年生肖紀念品）！"
+    },
+    {
+     "kind": "i",
+     "time": "15:45 - 17:05",
+     "text": "【逛毛線店和下午茶】【交通】在「岡崎公園 美術館・平安神宮前」搭 BUS 5、46、32、五條通 5 City BUS，在「四條河原町」下車步行 3 分鐘到【京都復古午後】Francois 喫茶室（不接受預約）和【毛線店】Nomura Tailor Shijo Store 和 Nomura Tailor House。"
+    },
+    {
+     "kind": "i",
+     "time": "傍晚",
+     "text": "晚餐參考店家（四條河原町／祇園周邊）"
+    },
+    {
+     "kind": "i",
+     "time": "",
+     "text": "【回飯店】高島屋百貨門口搭計程車，到「京都駅八条口の都ホテル（Kyoto Station Hachijo-guchi, Miyako Hotel）」，約 10 分鐘（車資約 ¥1,300～¥1,600）。"
+    }
+   ],
+   "tables": [
+    {
+     "title": "午餐參考",
+     "headers": [
+      "餐廳名稱",
+      "午餐均價 / 日圓",
+      "台幣",
+      "價位與餐點份量說明"
+     ],
+     "rows": [
+      [
+       "1. 権太呂 岡崎店（平安神宮大鳥居旁）",
+       "¥1,200~¥2,200",
+       "260~470",
+       "最平價飽足。單點一碗湯葉（腐皮）烏龍麵或山菜蕎麥麵約 ¥1,200~¥1,500；搭配蔬菜天婦羅的御膳套餐約 ¥2,000 左右。"
+      ],
+      [
+       "2. Padma（鴨川畔 100% 純素）",
+       "¥1,800~¥2,300",
+       "390~500",
+       "單一主餐定價。招牌「平和白飯拼盤（Peace Gohan Plate）」約 ¥2,000，有機玄米/白飯與十多種京都時蔬小菜，份量紮實且健康。"
+      ],
+      [
+       "3. Kyoto Modern Terrace（岡崎 蔦屋書店 2 樓）",
+       "¥1,800~¥3,200",
+       "390~690",
+       "視正月菜單而定。平時單點蔬食義大利麵、烤時蔬或蛋包飯約 ¥1,800～¥2,500（加點咖啡或甜點約 ¥3,000）；若 1 月 3 日僅供應「正月限定御膳」，價格則可能落在 ¥3,000～¥4,500 左右。"
+      ]
+     ]
+    },
+    {
+     "title": "晚餐參考（四條河原町／祇園周邊）",
+     "headers": [
+      "餐廳名稱",
+      "營業時間",
+      "料理類型與蛋奶素友善度",
+      "價位與訂位特色"
+     ],
+     "rows": [
+      [
+       "咖啡廳 CHOICE",
+       "09:30 – 21:00（晚餐最後點餐 20:00）",
+       "創意西式純素（無肉、無蛋奶、無麩質），自製純素起司披薩與義大利麵很受歡迎。",
+       "價位：約 1,500 – 3,000 日圓\n備註：近三條京阪站，不接受預約需現場候位。"
+      ],
+      [
+       "Engine Ramen（エンジンラーメン）",
+       "11:30 – 22:00",
+       "設有專門的純素／素食拉麵菜單（使用昆布、香菇與豆漿熬製湯頭），葷素同行者皆可各自點餐。",
+       "價位：約 1,200 – 1,800 日圓\n備註：位於河原町六角通附近，晚間營業至 22:00，非常適合逛街後用餐。"
+      ],
+      [
+       "[Kyoto Engine Ramen / 豬一離れ等周邊拉麵] 或 [CoCo壹番屋 河原町三條店]",
+       "11:00 – 22:00（依分店略有不同）",
+       "日本大型連鎖咖哩店，設有明確的「素食咖哩（ベジタリアンカレー）」菜單（不含動物性原料與蜂蜜）。",
+       "價位：約 1,000 – 1,500 日圓\n備註：分店多、營業時間長，新年期間照常營業機率極高，適合作為保底備案。"
+      ],
+      [
+       "[京懷石 祇園 豆寅 / 順正等湯豆腐專門店]",
+       "多數營業至 21:00 或 21:30（最後點餐約 19:30–20:00）",
+       "傳統京都湯豆腐與懷石料理。預約時特別註明「精進料理（不加柴魚高湯）」，即可符合蛋奶素需求。",
+       "價位：約 4,000 – 8,000 日圓\n備註：氛圍極佳，適合新年家庭聚餐，1 月 3 日務必提前預約。"
+      ]
+     ]
+    }
+   ],
+   "transport": "計程車 ＋【 IC 卡】",
+   "meals": ""
+  },
+  {
+   "date": "2027-01-04",
+   "tag": "京都 Day 6",
+   "title": "臨空城新春大折扣血拼 ➔ 關西機場返台",
+   "lodging": "京都八條都酒店（退房）",
+   "items": [
+    {
+     "kind": "i",
+     "time": "09:00 - 09:30",
+     "text": "辦理飯店退房。前往京都車站搭乘【JR 特急 Haruka 15 號】（指定席）出發前往機場。"
+    },
+    {
+     "kind": "i",
+     "time": "10:50",
+     "text": "抵達關西機場。"
+    },
+    {
+     "kind": "i",
+     "time": "11:00 - 11:15",
+     "text": "【轉乘】不出站，原站換乘【JR 關空快速】或【南海電鐵】（刷手機 ICOCA 坐 1 站）抵達「臨空城站」。"
+    },
+    {
+     "kind": "i",
+     "time": "11:15 - 11:30",
+     "text": "🧳【大折扣季行李寄放策略】"
+    },
+    {
+     "kind": "s",
+     "time": "",
+     "text": "新年大折扣期間寄物櫃極易爆滿！請直接前往臨空城站的「觀光案內所」或「佐川急便」進行人工寄存行李。"
+    },
+    {
+     "kind": "i",
+     "time": "11:30 - 14:30",
+     "text": "🛍️【新春大折扣大暴走】臨空城 Outlet (Rinku Premium Outlets) 瘋狂血拼，享受日本一年之中折扣最殺的「新春初賣福袋與特價」。"
+    },
+    {
+     "kind": "i",
+     "time": "14:35",
+     "text": "回案內所領取行李，搭乘電車（5 分鐘）回到關西機場。"
+    },
+    {
+     "kind": "i",
+     "time": "14:50",
+     "text": "抵達機場，前往長榮航空櫃檯辦理 BR129 班機的 Check-in 與行李託運。"
+    },
+    {
+     "kind": "i",
+     "time": "15:30 - 17:30",
+     "text": "輕鬆通過海關，在關西機場免稅店進行最後補貨（伴手禮、美妝），準備搭機返台，圓滿結束極具福氣的京都跨年五社巡禮之旅！"
+    }
+   ],
+   "tables": [],
+   "transport": "JR 特急 Haruka 自由席/指定席（約 3,000~3,600）\n購買【Haruka 單程優惠車票】（可在 Klook/KKday 提前購買電子票）",
+   "meals": ""
+  }
+ ]
+}</script>
+<script>
+(function(){
+'use strict';
+var KEY='kyoto-trip-v1';
+var WD='日一二三四五六';
+var KINDS=[['i','一般'],['s','子項目'],['g','🌟 重點'],['b','提示框']];
+var app=document.getElementById('app');
+var toastEl=document.getElementById('toast');
+var data,edit=false,cur='';
+
+function $(s,r){return (r||document).querySelector(s)}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function fmt(s){return esc(s).replace(/【([^】]*)】/g,'<strong class="hl">【$1】</strong>')}
+function pad(n){return String(n).padStart(2,'0')}
+function parseId(id){var p=id.split('-').map(Number);return {y:p[0],m:p[1],d:p[2]}}
+function wd(id){var p=parseId(id);return '週'+WD[new Date(p.y,p.m-1,p.d).getDay()]}
+function md(id){var p=parseId(id);return p.m+'/'+p.d}
+function ymd(id){var p=parseId(id);return p.y+'/'+pad(p.m)+'/'+pad(p.d)}
+function todayId(){var t=new Date();return t.getFullYear()+'-'+pad(t.getMonth()+1)+'-'+pad(t.getDate())}
+function validId(s){return /^\d{4}-\d{2}-\d{2}$/.test(s)}
+function curDay(){return data.days.filter(function(d){return d.date===cur})[0]}
+function sortDays(){data.days.sort(function(a,b){return a.date<b.date?-1:a.date>b.date?1:0})}
+
+function load(){
+  var seed=JSON.parse($('#seed').textContent);
+  var ls=null;
+  try{ls=JSON.parse(localStorage.getItem(KEY))}catch(e){}
+  data=(ls&&ls.days&&(ls.rev||0)>=(seed.rev||0))?ls:seed;
+  sortDays();
+}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(data))}catch(e){}}
+function toast(msg){
+  toastEl.textContent=msg;toastEl.classList.add('show');
+  clearTimeout(toast.t);toast.t=setTimeout(function(){toastEl.classList.remove('show')},2300);
+}
+function autosize(el){el.style.height='auto';el.style.height=(el.scrollHeight+2)+'px'}
+function setPath(obj,path,val){
+  var p=path.split('.'),o=obj;
+  for(var i=0;i<p.length-1;i++)o=o[p[i]];
+  o[p[p.length-1]]=val;
+}
+
+/* ---------- views ---------- */
+function topbar(){
+  return '<div class="topbar"><div class="topbar-in">'+
+    '<a class="brand" href="#">🏮 '+esc(data.title)+'</a>'+
+    '<div class="tools">'+
+      '<button class="btn'+(edit?' on':'')+'" data-act="edit">'+(edit?'完成編輯':'✏️ 編輯')+'</button>'+
+      '<details class="menu"><summary class="btn" aria-label="更多選項">⋯</summary><div class="pop">'+
+        '<button data-act="exporthtml">⬇️ 下載更新後的 index.html</button>'+
+        '<button data-act="exportjson">⬇️ 匯出備份（JSON）</button>'+
+        '<button data-act="importjson">⬆️ 匯入備份（JSON）</button>'+
+        '<button data-act="reset">↩️ 還原成預設內容</button>'+
+        '<p>編輯內容只會存在這個瀏覽器。要讓 GitHub 上的網站也更新，請下載 index.html 後覆蓋 repo 裡的檔案。</p>'+
+      '</div></details>'+
+    '</div></div></div>'+
+    (edit?'<div class="editbar">✏️ 編輯模式：變更會自動儲存在這個瀏覽器</div>':'');
+}
+
+function landing(){
+  var days=data.days,h='';
+  var first=days.length?days[0].date:'',last=days.length?days[days.length-1].date:'';
+  h+='<div class="wrap"><header class="hero"><div class="kicker">TRIP ITINERARY</div>';
+  if(edit){
+    h+='<label class="fld"><span>標題</span><input data-f="root:title" value="'+esc(data.title)+'"></label>'+
+       '<label class="fld"><span>副標</span><input data-f="root:subtitle" value="'+esc(data.subtitle)+'"></label>';
+  }else{
+    h+='<h1>'+esc(data.title)+'</h1>';
+  }
+  if(days.length)h+='<p class="range">'+ymd(first)+' – '+ymd(last)+'　·　共 '+days.length+' 天</p>';
+  h+='<label class="jump"><span>📅 '+esc(data.subtitle||'選擇日期')+'</span>'+
+     '<input type="date" id="jump" data-act="jump" min="'+first+'" max="'+last+'" value="'+(days.some(function(d){return d.date===todayId()})?todayId():'')+'"></label></header>';
+  var groups=[],map={};
+  days.forEach(function(d){
+    var p=parseId(d.date),k=p.y+'-'+p.m;
+    if(!map[k]){map[k]={y:p.y,m:p.m,days:[]};groups.push(map[k])}
+    map[k].days.push(d);
+  });
+  var td=todayId();
+  groups.forEach(function(g){
+    h+='<div class="month">'+g.y+' 年 '+g.m+' 月</div><div class="grid">';
+    g.days.forEach(function(d){
+      h+='<a class="card'+(d.date===td?' today':'')+'" href="#'+d.date+'">'+
+        (d.date===td?'<span class="badge">今天</span>':'')+
+        '<div class="cd"><span class="num">'+parseId(d.date).d+'</span><span class="wk">'+wd(d.date)+'</span></div>'+
+        '<div class="ct">'+esc(d.tag)+'</div><div class="cti">'+esc(d.title)+'</div></a>';
+    });
+    h+='</div>';
+  });
+  if(edit)h+='<div class="addrow" style="margin-top:22px"><button class="btn" data-act="dayadd">＋ 新增一天</button></div>';
+  h+='</div>';
+  return h;
+}
+
+function timeHtml(t){
+  if(!t)return '';
+  var p=t.split(/\s*[-–~]\s*/);
+  if(p.length>1&&/\d/.test(p[0]))return '<div class="tm">'+esc(p[0])+'<small>– '+esc(p[1])+'</small></div>';
+  return '<div class="tm">'+esc(t)+'</div>';
+}
+function itemHtml(it){
+  var k=it.kind;
+  if(k==='s')return '<li class="it sub"><div></div><div class="body"><div class="tx">'+fmt(it.text)+'</div></div></li>';
+  if(k==='g')return '<li class="it star"><div></div><div class="body"><div class="tx">'+fmt(it.text)+'</div></div></li>';
+  if(k==='b')return '<li class="it box"><div></div><div class="body"><div class="tx">'+(it.time?'<div class="bt">'+esc(it.time)+'</div>':'')+fmt(it.text)+'</div></div></li>';
+  return '<li class="it main"><div>'+timeHtml(it.time)+'</div><div class="body"><div class="tx">'+fmt(it.text)+'</div></div></li>';
+}
+function tableHtml(t){
+  var h='<section class="sec"><h3>'+esc(t.title)+'</h3><div class="scroll"><table><thead><tr>';
+  t.headers.forEach(function(x){h+='<th>'+esc(x)+'</th>'});
+  h+='</tr></thead><tbody>';
+  t.rows.forEach(function(r){h+='<tr>'+r.map(function(c){return '<td>'+fmt(c)+'</td>'}).join('')+'</tr>'});
+  return h+'</tbody></table></div></section>';
+}
+function kindSel(attrs,v){
+  return '<select '+attrs+'>'+KINDS.map(function(k){return '<option value="'+k[0]+'"'+(k[0]===v?' selected':'')+'>'+k[1]+'</option>'}).join('')+'</select>';
+}
+function itemEdit(it,i,n){
+  return '<li class="ed-it"><div class="ed-row">'+kindSel('data-f="items.'+i+'.kind"',it.kind)+
+    '<input class="tin" data-f="items.'+i+'.time" placeholder="'+(it.kind==='b'?'標題':'時間（如 09:00 - 10:00）')+'" value="'+esc(it.time)+'">'+
+    '<span class="mv"><button data-act="up" data-i="'+i+'"'+(i===0?' disabled':'')+'>↑</button>'+
+    '<button data-act="down" data-i="'+i+'"'+(i===n-1?' disabled':'')+'>↓</button>'+
+    '<button data-act="del" data-i="'+i+'">✕</button></span></div>'+
+    '<textarea rows="2" data-f="items.'+i+'.text">'+esc(it.text)+'</textarea></li>';
+}
+function tableEdit(t,ti){
+  var h='<section class="tbl-ed"><div class="ed-row"><input class="tin" data-f="tables.'+ti+'.title" value="'+esc(t.title)+'" placeholder="表格標題">'+
+    '<button class="mini" data-act="tdel" data-t="'+ti+'">刪除表格</button></div><div class="scroll"><table><thead><tr>';
+  t.headers.forEach(function(x,c){h+='<th><input data-f="tables.'+ti+'.headers.'+c+'" value="'+esc(x)+'"></th>'});
+  h+='<th></th></tr></thead><tbody>';
+  t.rows.forEach(function(r,ri){
+    h+='<tr>'+r.map(function(c,ci){return '<td><textarea rows="2" data-f="tables.'+ti+'.rows.'+ri+'.'+ci+'">'+esc(c)+'</textarea></td>'}).join('')+
+       '<td><button class="mini" data-act="trowdel" data-t="'+ti+'" data-r="'+ri+'">✕</button></td></tr>';
+  });
+  h+='</tbody></table></div><div class="row-tools"><button class="mini" data-act="trow" data-t="'+ti+'">＋ 列</button>'+
+     '<button class="mini" data-act="tcol" data-t="'+ti+'">＋ 欄</button>'+
+     '<button class="mini" data-act="tcoldel" data-t="'+ti+'">－ 欄</button></div></section>';
+  return h;
+}
+
+function dayView(){
+  var d=curDay(),idx=data.days.indexOf(d),h='<div class="wrap">';
+  if(edit){
+    h+='<div class="dayhead"><label class="fld"><span>日期</span><input type="date" data-act="setdate" value="'+d.date+'"></label>'+
+      '<label class="fld"><span>標籤（如 京都 Day 1）</span><input data-f="tag" value="'+esc(d.tag)+'"></label>'+
+      '<label class="fld"><span>當天標題</span><input data-f="title" value="'+esc(d.title)+'"></label>'+
+      '<label class="fld"><span>住宿</span><input data-f="lodging" value="'+esc(d.lodging)+'"></label></div>';
+    h+='<ol class="tl" style="margin:0;padding:0">'+d.items.map(function(it,i){return itemEdit(it,i,d.items.length)}).join('')+'</ol>';
+    h+='<div class="addrow">'+kindSel('id="addkind"','i')+'<button class="btn" data-act="add">＋ 新增項目</button></div>';
+    d.tables.forEach(function(t,ti){h+=tableEdit(t,ti)});
+    h+='<div class="addrow"><button class="btn" data-act="tnew">＋ 新增表格</button></div>';
+    h+='<label class="fld sec"><span>🎫 交通及票券</span><textarea rows="3" data-f="transport">'+esc(d.transport)+'</textarea></label>'+
+       '<label class="fld"><span>🍽️ 午晚餐建議</span><textarea rows="3" data-f="meals">'+esc(d.meals)+'</textarea></label>';
+    h+='<div class="addrow" style="margin-top:28px"><button class="btn danger" data-act="daydel">🗑 刪除這一天</button></div>';
+  }else{
+    h+='<div class="dayhead"><div class="bigdate"><span class="n">'+md(d.date)+'</span><span class="chip">'+wd(d.date)+'</span>'+
+       (d.tag?'<span class="chip tag">'+esc(d.tag)+'</span>':'')+'</div><h2>'+esc(d.title)+'</h2>'+
+       (d.lodging?'<p class="lodging">🏨 '+esc(d.lodging)+'</p>':'')+'</div>';
+    h+='<ol class="tl">'+d.items.map(itemHtml).join('')+'</ol>';
+    d.tables.forEach(function(t){h+=tableHtml(t)});
+    if(d.transport)h+='<section class="sec"><h3>🎫 交通及票券</h3><div class="note">'+fmt(d.transport)+'</div></section>';
+    if(d.meals)h+='<section class="sec"><h3>🍽️ 午晚餐建議</h3><div class="note">'+fmt(d.meals)+'</div></section>';
+  }
+  h+='</div>';
+  var pv=data.days[idx-1],nx=data.days[idx+1];
+  h+='<nav class="daynav"><div class="daynav-in">'+
+    (pv?'<a href="#'+pv.date+'">← '+md(pv.date)+'</a>':'<span class="dis">←</span>')+
+    '<a class="mid" href="#">全部日期</a>'+
+    (nx?'<a href="#'+nx.date+'">'+md(nx.date)+' →</a>':'<span class="dis">→</span>')+'</div></nav>';
+  return h;
+}
+
+function render(keep){
+  var y=window.scrollY;
+  app.innerHTML=topbar()+(cur&&curDay()?dayView():landing());
+  var ts=app.querySelectorAll('textarea');
+  for(var i=0;i<ts.length;i++)autosize(ts[i]);
+  var d=cur&&curDay();
+  document.title=d?(md(d.date)+' '+d.title+' | '+data.title):data.title;
+  window.scrollTo(0,keep?y:0);
+}
+function route(){
+  cur=''; try{cur=decodeURIComponent(location.hash.slice(1))}catch(e){}
+  if(cur&&!curDay())cur='';
+  render(false);
+}
+
+/* ---------- io ---------- */
+function download(name,text,type){
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([text],{type:type+';charset=utf-8'}));
+  a.download=name;document.body.appendChild(a);a.click();
+  setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},500);
+}
+function exportHtml(){
+  data.rev=Date.now();save();
+  var clone=document.documentElement.cloneNode(true);
+  clone.querySelector('#app').innerHTML='';
+  var t=clone.querySelector('#toast');t.textContent='';t.className='';
+  clone.querySelector('#seed').textContent=JSON.stringify(data,null,1).replace(/</g,'\\u003c');
+  download('index.html','<!DOCTYPE html>\n'+clone.outerHTML,'text/html');
+  toast('已下載 index.html，覆蓋到 GitHub 即可');
+}
+function importJson(){
+  var inp=document.createElement('input');inp.type='file';inp.accept='.json,application/json';
+  inp.onchange=function(){
+    var f=inp.files[0];if(!f)return;
+    var r=new FileReader();
+    r.onload=function(){
+      try{
+        var o=JSON.parse(r.result);
+        if(!o||!Array.isArray(o.days))throw new Error('format');
+        data=o;sortDays();save();cur='';location.hash='';render(false);toast('已匯入備份');
+      }catch(e){toast('匯入失敗：檔案格式不正確')}
+    };
+    r.readAsText(f);
+  };
+  inp.click();
+}
+
+/* ---------- events ---------- */
+app.addEventListener('input',function(e){
+  var el=e.target,f=el.dataset&&el.dataset.f;if(!f)return;
+  var base=f.indexOf('root:')===0?data:curDay();if(!base)return;
+  setPath(base,f.replace('root:',''),el.value);
+  if(el.tagName==='TEXTAREA')autosize(el);
+  save();
+});
+app.addEventListener('change',function(e){
+  var el=e.target,a=el.dataset&&el.dataset.act;
+  if(a==='jump'){
+    if(!el.value)return;
+    if(data.days.some(function(d){return d.date===el.value}))location.hash='#'+el.value;
+    else toast('這一天沒有安排行程');
+  }
+  if(a==='setdate'){
+    var d=curDay(),v=el.value;
+    if(!validId(v))return;
+    if(v!==d.date&&data.days.some(function(x){return x.date===v})){toast('這個日期已經有行程了');el.value=d.date;return}
+    d.date=v;sortDays();save();cur=v;history.replaceState(null,'','#'+v);render(true);
+  }
+});
+document.addEventListener('click',function(e){
+  var b=e.target.closest('[data-act]');
+  if(!b||b.tagName==='INPUT'||b.tagName==='SELECT')return;
+  var a=b.dataset.act,d=curDay(),i=+b.dataset.i,t=+b.dataset.t,r=+b.dataset.r;
+  var m=b.closest('details');if(m)m.open=false;
+  switch(a){
+    case 'edit':edit=!edit;render(true);return;
+    case 'up':if(i>0){var x=d.items[i];d.items[i]=d.items[i-1];d.items[i-1]=x}break;
+    case 'down':if(i<d.items.length-1){var y=d.items[i];d.items[i]=d.items[i+1];d.items[i+1]=y}break;
+    case 'del':d.items.splice(i,1);break;
+    case 'add':
+      d.items.push({kind:$('#addkind').value,time:'',text:''});
+      save();render(true);
+      var tas=app.querySelectorAll('textarea[data-f^="items."]');
+      if(tas.length){var last=tas[tas.length-1];last.focus();last.scrollIntoView({block:'center'})}
+      return;
+    case 'tnew':d.tables.push({title:'新表格',headers:['項目','內容'],rows:[['','']]});break;
+    case 'tdel':if(confirm('確定刪除這個表格？'))d.tables.splice(t,1);else return;break;
+    case 'trow':d.tables[t].rows.push(d.tables[t].headers.map(function(){return ''}));break;
+    case 'trowdel':d.tables[t].rows.splice(r,1);break;
+    case 'tcol':d.tables[t].headers.push('新欄');d.tables[t].rows.forEach(function(row){row.push('')});break;
+    case 'tcoldel':
+      if(d.tables[t].headers.length>1){d.tables[t].headers.pop();d.tables[t].rows.forEach(function(row){row.pop()})}break;
+    case 'dayadd':{
+      var v=prompt('新增哪一天？請輸入日期，例如 2027-01-05');
+      if(!v)return;v=v.trim().replace(/\//g,'-');
+      var p=v.split('-');if(p.length===3)v=p[0]+'-'+pad(p[1])+'-'+pad(p[2]);
+      if(!validId(v)||isNaN(new Date(v+'T00:00:00')))return toast('日期格式不正確');
+      if(data.days.some(function(x){return x.date===v}))return toast('這天已經有行程了');
+      data.days.push({date:v,tag:'',title:'新的一天',lodging:'',items:[],tables:[],transport:'',meals:''});
+      sortDays();save();location.hash='#'+v;return;
+    }
+    case 'daydel':
+      if(!confirm('確定刪除 '+md(d.date)+' 整天的行程？'))return;
+      data.days.splice(data.days.indexOf(d),1);save();location.hash='';return;
+    case 'exporthtml':exportHtml();return;
+    case 'exportjson':download('itinerary-backup.json',JSON.stringify(data,null,1),'application/json');return;
+    case 'importjson':importJson();return;
+    case 'reset':
+      if(!confirm('還原成網頁內建的預設內容？你在這個瀏覽器的修改會被清除。'))return;
+      try{localStorage.removeItem(KEY)}catch(err){}
+      load();cur='';location.hash='';render(false);toast('已還原');return;
+    default:return;
+  }
+  save();render(true);
+});
+document.addEventListener('keydown',function(e){
+  if(edit||!cur)return;
+  var tg=(e.target.tagName||'');if(/INPUT|TEXTAREA|SELECT/.test(tg))return;
+  var idx=data.days.indexOf(curDay()),n=null;
+  if(e.key==='ArrowLeft')n=data.days[idx-1];
+  if(e.key==='ArrowRight')n=data.days[idx+1];
+  if(n)location.hash='#'+n.date;
+});
+window.addEventListener('hashchange',route);
+
+load();
+route();
+})();
+</script>
+</body>
+</html>
