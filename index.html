@@ -34,8 +34,8 @@ button,input,select,textarea{font:inherit;color:inherit}
   padding:calc(8px + env(safe-area-inset-top,0px)) 16px 8px}
 .topbar-in{max-width:760px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:8px}
 .brand{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
-.tools{display:flex;gap:8px;align-items:center;position:relative}
-.btn{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:6px 14px;cursor:pointer;
+.tools{display:flex;gap:6px;align-items:center;position:relative;flex:none}
+.btn{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:6px 12px;cursor:pointer;
   font-size:14px;line-height:1.4;list-style:none;white-space:nowrap}
 .btn::-webkit-details-marker{display:none}
 .btn.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
@@ -53,10 +53,6 @@ button,input,select,textarea{font:inherit;color:inherit}
 .kicker{letter-spacing:.25em;font-size:12px;color:var(--accent);font-weight:700}
 .hero h1{margin:6px 0 4px;font:700 clamp(28px,7vw,40px)/1.2 "Noto Serif TC","Songti TC","PMingLiU",serif}
 .range{color:var(--muted);margin:0 0 4px}
-.jump{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:18px 0 6px;
-  background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
-.jump span{font-weight:600}
-.jump input{width:auto;flex:1;min-width:150px}
 .month{margin:26px 0 10px;font-weight:700;color:var(--muted);letter-spacing:.08em;font-size:14px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
 .card{display:flex;flex-direction:column;gap:2px;background:var(--card);border:1px solid var(--line);
@@ -77,7 +73,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 .chip{font-size:12.5px;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:1px 10px;color:var(--muted)}
 .chip.tag{background:var(--accent-soft);border-color:transparent;color:var(--accent)}
 .dayhead h2{margin:10px 0 6px;font:700 clamp(20px,5vw,26px)/1.35 "Noto Serif TC","Songti TC",serif}
-.lodging{margin:0;color:var(--muted);font-size:14.5px}
+.lodging{margin:0;color:var(--muted);font-size:14.5px;white-space:pre-wrap;overflow-wrap:anywhere}
 
 ol.tl{list-style:none;margin:8px 0 0;padding:0}
 li.it{display:grid;grid-template-columns:78px 1fr}
@@ -150,9 +146,9 @@ input:focus,textarea:focus,select:focus{outline:2px solid var(--accent);outline-
 <noscript><p style="padding:24px">請開啟 JavaScript 以檢視行程。</p></noscript>
 
 <script id="seed" type="application/json">{
- "rev": 0,
+ "rev": 1795046400000,
  "title": "熊野古道 × 京都跨年之旅",
- "subtitle": "選擇日期，查看當天行程",
+ "subtitle": "點選日期，查看當天行程",
  "days": [
   {
    "date": "2026-12-23",
@@ -178,188 +174,218 @@ input:focus,textarea:focus,select:focus{outline:2px solid var(--accent);outline-
   {
    "date": "2026-12-24",
    "tag": "團 D1",
-   "title": "名古屋 → 熊野市 → 新宮",
-   "lodging": "",
+   "title": "JR名古屋車站 – 松本峠 – 鬼城 – 新宮",
+   "lodging": "新宮 Hotel New Palace（ホテルニューパレス）\n〒647-0010 和歌山県新宮市丹鶴2丁目2番22号　☎ +81735281500",
    "items": [
+    {
+     "kind": "g",
+     "time": "",
+     "text": "🥾 健行距離：約 6~8 公里"
+    },
     {
      "kind": "i",
      "time": "07:00",
-     "text": "名古屋車站太閣通集合"
+     "text": "【JR 名古屋車站】太閣通口的銀色時鐘前集合，發放資料，接著各自採買車上要吃的小點心。"
     },
     {
      "kind": "i",
      "time": "08:02",
-     "text": "熊野市"
+     "text": "搭乘 JR 火車前往熊野市站。"
     },
     {
      "kind": "i",
      "time": "",
-     "text": "松本峠"
+     "text": "抵達熊野市後，步行前往世界遺產熊野古道【松本峠】，在松本峠上健行，並且走往另一個世界遺產【鬼之城】，欣賞大自然的鬼斧神工。"
     },
     {
      "kind": "i",
      "time": "",
-     "text": "鬼城"
+     "text": "搭車前往【新宮】，前往今日下榻的飯店。"
     },
     {
-     "kind": "i",
-     "time": "",
-     "text": "新宮"
+     "kind": "b",
+     "time": "行程注意事項（全程適用）",
+     "text": "由於行程將包含徒步健行，因此實際行程有可能依照團體實際健行狀況或是天候因素隨時做調整，若領隊判斷團員有狀況，則可能隨時做行程或路線的調整，有可能無法依照原定計畫完成該天行程，敬請見諒。\n登山行程中，所有團員請勿超越領隊，若領隊現場判斷團員不適合再繼續前進，或時間過晚需要撤退，一切行進或撤退皆遵照領隊人員的指示安排。"
     }
    ],
    "tables": [],
    "transport": "",
-   "meals": ""
+   "meals": "早餐：自理　午餐：自理　晚餐：自理"
   },
   {
    "date": "2026-12-25",
    "tag": "團 D2",
-   "title": "熊野川遊船・神倉神社・熊野速玉大社",
-   "lodging": "",
+   "title": "新宮 – 神倉神社 – 熊野速玉大社 – 高野坂",
+   "lodging": "新宮 Hotel New Palace（ホテルニューパレス）\n〒647-0010 和歌山県新宮市丹鶴2丁目2番22号　☎ +81735281500",
    "items": [
     {
      "kind": "i",
      "time": "",
-     "text": "新宮"
+     "text": "【熊野速玉大社】參拜熊野三山的第一座大社，近距離體驗熊野三山。"
     },
     {
      "kind": "i",
      "time": "",
-     "text": "熊野川遊船"
+     "text": "【神倉神社】世界遺產，最著名的就是陡峭的石階，爬上石階可以俯瞰美麗的新宮街景。"
     },
     {
      "kind": "i",
      "time": "",
-     "text": "神倉神社"
-    },
-    {
-     "kind": "i",
-     "time": "",
-     "text": "熊野速玉大社"
-    },
-    {
-     "kind": "i",
-     "time": "",
-     "text": "回新宮"
+     "text": "【高野坂】享受中邊路海岸路段的輕鬆健行。"
     }
    ],
    "tables": [],
    "transport": "",
-   "meals": ""
+   "meals": "早餐：飯店早餐　午餐：自理　晚餐：自理"
   },
   {
    "date": "2026-12-26",
    "tag": "團 D3",
-   "title": "熊野那智大社與那智瀑布",
-   "lodging": "浦島飯店（紀伊勝浦）",
+   "title": "新宮 – 熊野那智大社 – 那智瀑布 – 紀之松島遊船 – 紀伊勝浦",
+   "lodging": "那智勝浦 浦島飯店（ホテル浦島）\n〒649-5334 和歌山県東牟婁郡那智勝浦町勝浦1165-2　☎ +81735521011",
    "items": [
     {
      "kind": "i",
      "time": "",
-     "text": "新宮"
+     "text": "搭車前往【熊野那智大社】，參拜熊野三山的第二座神社，感受熊野信仰的魅力。"
     },
     {
      "kind": "i",
      "time": "",
-     "text": "熊野那智大社"
+     "text": "【那智瀑布】莊嚴的那智瀑布名列日本三大名瀑之一，近距離欣賞壯觀的瀑布。"
     },
     {
      "kind": "i",
      "time": "",
-     "text": "那智瀑布"
+     "text": "搭乘【紀之松島遊船】，欣賞壯麗的海上奇石風光。"
     },
     {
      "kind": "i",
      "time": "",
-     "text": "紀伊勝浦（浦島飯店）"
+     "text": "前往著名的絕景【浦島飯店】。飯店坐落在島嶼上，整座島嶼都是飯店的範圍，最有名的是可以俯望太平洋的天然洞窟溫泉，可以在這邊享受不同溫泉浴池的溫泉浴，晚餐也在飯店內享用美味的餐點，好好體驗自然、好好放鬆。"
     }
    ],
    "tables": [],
    "transport": "",
-   "meals": ""
+   "meals": "早餐：飯店早餐　午餐：自理　晚餐：飯店晚餐"
   },
   {
    "date": "2026-12-27",
    "tag": "團 D4",
-   "title": "新宮 → 大齋原 → 川湯溫泉",
-   "lodging": "川湯溫泉",
+   "title": "紀伊勝浦 – 大齋原 – 川湯溫泉",
+   "lodging": "川湯溫泉 山水館 川湯みどりや\n〒647-1717 和歌山県田辺市本宮町川湯13　☎ +81735421011",
    "items": [
     {
      "kind": "i",
      "time": "",
-     "text": "紀伊勝浦"
+     "text": "依依不捨地離開浦島飯店，經由新宮轉車前往【大齋原】。"
     },
     {
      "kind": "i",
      "time": "",
-     "text": "新宮"
+     "text": "【大齋原】大齋原鳥居是全世界最大的鳥居，同時也是本宮大社的舊址所在。參觀大齋原地區，並且在這裡用餐。"
     },
     {
      "kind": "i",
-     "time": "",
-     "text": "大齋原"
-    },
-    {
-     "kind": "i",
-     "time": "",
-     "text": "川湯溫泉"
+     "time": "下午",
+     "text": "搭車前往今日住宿的【川湯溫泉】。"
     }
    ],
    "tables": [],
    "transport": "",
-   "meals": ""
+   "meals": "早餐：飯店早餐　午餐：自理　晚餐：飯店晚餐"
   },
   {
    "date": "2026-12-28",
    "tag": "團 D5",
-   "title": "發心門王子與熊野本宮大社",
-   "lodging": "川湯溫泉",
+   "title": "川湯溫泉 – 發心門王子 – 熊野本宮大社",
+   "lodging": "川湯溫泉 山水館 川湯みどりや\n〒647-1717 和歌山県田辺市本宮町川湯13　☎ +81735421011",
    "items": [
     {
-     "kind": "i",
+     "kind": "g",
      "time": "",
-     "text": "川湯溫泉"
+     "text": "🥾 健行距離：約 7~10 公里（約 2.5~3.5 小時）"
+    },
+    {
+     "kind": "i",
+     "time": "早上",
+     "text": "於川湯溫泉搭車前往【發心門王子】。"
     },
     {
      "kind": "i",
      "time": "",
-     "text": "發心門王子"
+     "text": "從發心門王子開始步行前往世界遺產【熊野本宮大社】。這一段路是中邊路的精華，可以感受到古道幽靜靜謐的氛圍，以及欣賞農家的閑靜景致，整體路線是緩緩下坡，路徑寬闊好走，約 2.5~3.5 小時便可以輕鬆抵達。"
     },
     {
      "kind": "i",
      "time": "",
-     "text": "熊野本宮大社"
+     "text": "【熊野本宮大社】熊野三山的信仰中心，神社莊嚴寧靜，非常適合將繁雜的心靈沉靜下來。"
     },
     {
      "kind": "i",
      "time": "",
-     "text": "回川湯溫泉"
+     "text": "【世界遺產中心】位於本宮大社旁，展示熊野古道以及西班牙朝聖之路的相關展覽。若之前已經走完西班牙朝聖之路，可以在這裡領到專屬的雙朝聖證書。"
     }
    ],
    "tables": [],
    "transport": "",
-   "meals": ""
+   "meals": "早餐：飯店早餐　午餐：自理　晚餐：飯店晚餐"
   },
   {
    "date": "2026-12-29",
    "tag": "團 D6",
-   "title": "紀伊田邊 → 和歌山城 → 京都",
-   "lodging": "京都八條都酒店",
+   "title": "川湯溫泉 – 紀伊田邊 – 大阪JR天王寺車站 – 京都",
+   "lodging": "京都八條都酒店（團體行程當日無住宿）",
    "items": [
     {
      "kind": "i",
-     "time": "",
-     "text": "川湯溫泉"
+     "time": "早上",
+     "text": "於飯店 check-out 之後，搭車前往【紀伊田邊】，接著再等車返回大阪。"
     },
     {
      "kind": "i",
      "time": "",
-     "text": "紀伊田邊"
+     "text": "等車的同時，可以自行散步至車站周邊的景點逛逛："
+    },
+    {
+     "kind": "s",
+     "time": "",
+     "text": "車站旁的【田邊市觀光中心】，裡面有許多周邊地區的觀光資訊。"
+    },
+    {
+     "kind": "s",
+     "time": "",
+     "text": "車站南方的【鬪雞神社】，雖然看起來不起眼，但這座神社其實也名列世界遺產。"
+    },
+    {
+     "kind": "s",
+     "time": "",
+     "text": "【蟻通神社】在商店街的入口，相傳神社的起源與一隻螞蟻有關，御守還會有螞蟻的圖案。"
+    },
+    {
+     "kind": "i",
+     "time": "12:32",
+     "text": "搭乘 JR 列車前往大阪。"
+    },
+    {
+     "kind": "i",
+     "time": "14:33",
+     "text": "預計抵達【大阪天王寺車站】，也就是團體行程的終點。"
+    },
+    {
+     "kind": "s",
+     "time": "",
+     "text": "若需要直接前往關西機場搭機，可以在中途【日根野站】提前解散自行前往機場，最快可於 14:29 抵達機場。"
+    },
+    {
+     "kind": "b",
+     "time": "以下為原 Excel 的個人安排",
+     "text": "團體行程之外：紀伊田邊 ➔ 和歌山城 ➔ 京都八條都酒店。請確認和上方團體行程的銜接（例如在哪一站離團）。"
     },
     {
      "kind": "i",
      "time": "",
-     "text": "和歌山城"
+     "text": "【和歌山城】"
     },
     {
      "kind": "i",
@@ -399,7 +425,7 @@ input:focus,textarea:focus,select:focus{outline:2px solid var(--accent);outline-
    ],
    "tables": [],
    "transport": "在 JR 西日本官網線上訂票，直接搜尋出發地「和歌山 (Wakayama)」➔ 目的地「京都 (Kyoto)」。系統會自動跑出「黑潮號 ➔ 新大阪轉乘 ➔ HARUKA號」的聯程組合，並自動將第二段 HARUKA 的特急指定席座位費直接打 5 折（特急券半價優惠）！\n11/29 到 JR 西日本官網搶 12/29 和歌山到京都的全程特急指定席（黑潮號＋HARUKA號），記得手動勾選「最後一排座位」。",
-   "meals": ""
+   "meals": "早餐：飯店早餐　午餐：自理　晚餐：自理"
   },
   {
    "date": "2026-12-30",
@@ -927,7 +953,7 @@ var WD='日一二三四五六';
 var KINDS=[['i','一般'],['s','子項目'],['g','🌟 重點'],['b','提示框']];
 var app=document.getElementById('app');
 var toastEl=document.getElementById('toast');
-var data,edit=false,cur='';
+var data,edit=false,cur='',snap=null,snapCur='';
 
 function $(s,r){return (r||document).querySelector(s)}
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
@@ -949,7 +975,8 @@ function load(){
   data=(ls&&ls.days&&(ls.rev||0)>=(seed.rev||0))?ls:seed;
   sortDays();
 }
-function save(){try{localStorage.setItem(KEY,JSON.stringify(data))}catch(e){}}
+function persist(){try{localStorage.setItem(KEY,JSON.stringify(data))}catch(e){}}
+function save(){if(!edit)persist()}
 function toast(msg){
   toastEl.textContent=msg;toastEl.classList.add('show');
   clearTimeout(toast.t);toast.t=setTimeout(function(){toastEl.classList.remove('show')},2300);
@@ -966,7 +993,8 @@ function topbar(){
   return '<div class="topbar"><div class="topbar-in">'+
     '<a class="brand" href="#">🏮 '+esc(data.title)+'</a>'+
     '<div class="tools">'+
-      '<button class="btn'+(edit?' on':'')+'" data-act="edit">'+(edit?'完成編輯':'✏️ 編輯')+'</button>'+
+      (edit?'<button class="btn on" data-act="done">完成編輯</button><button class="btn" data-act="discard">放棄編輯</button>'
+        :'<button class="btn" data-act="edit">✏️ 編輯</button>')+
       '<details class="menu"><summary class="btn" aria-label="更多選項">⋯</summary><div class="pop">'+
         '<button data-act="exporthtml">⬇️ 下載更新後的 index.html</button>'+
         '<button data-act="exportjson">⬇️ 匯出備份（JSON）</button>'+
@@ -975,7 +1003,7 @@ function topbar(){
         '<p>編輯內容只會存在這個瀏覽器。要讓 GitHub 上的網站也更新，請下載 index.html 後覆蓋 repo 裡的檔案。</p>'+
       '</div></details>'+
     '</div></div></div>'+
-    (edit?'<div class="editbar">✏️ 編輯模式：變更會自動儲存在這個瀏覽器</div>':'');
+    (edit?'<div class="editbar">✏️ 編輯模式：按「完成編輯」才會儲存，「放棄編輯」則不儲存這次的變更</div>':'');
 }
 
 function landing(){
@@ -989,8 +1017,8 @@ function landing(){
     h+='<h1>'+esc(data.title)+'</h1>';
   }
   if(days.length)h+='<p class="range">'+ymd(first)+' – '+ymd(last)+'　·　共 '+days.length+' 天</p>';
-  h+='<label class="jump"><span>📅 '+esc(data.subtitle||'選擇日期')+'</span>'+
-     '<input type="date" id="jump" data-act="jump" min="'+first+'" max="'+last+'" value="'+(days.some(function(d){return d.date===todayId()})?todayId():'')+'"></label></header>';
+  if(!edit&&data.subtitle)h+='<p class="range">'+esc(data.subtitle)+'</p>';
+  h+='</header>';
   var groups=[],map={};
   days.forEach(function(d){
     var p=parseId(d.date),k=p.y+'-'+p.m;
@@ -1065,13 +1093,13 @@ function dayView(){
     h+='<div class="dayhead"><label class="fld"><span>日期</span><input type="date" data-act="setdate" value="'+d.date+'"></label>'+
       '<label class="fld"><span>標籤（如 京都 Day 1）</span><input data-f="tag" value="'+esc(d.tag)+'"></label>'+
       '<label class="fld"><span>當天標題</span><input data-f="title" value="'+esc(d.title)+'"></label>'+
-      '<label class="fld"><span>住宿</span><input data-f="lodging" value="'+esc(d.lodging)+'"></label></div>';
+      '<label class="fld"><span>住宿（可換行填地址、電話）</span><textarea rows="2" data-f="lodging">'+esc(d.lodging)+'</textarea></label></div>';
     h+='<ol class="tl" style="margin:0;padding:0">'+d.items.map(function(it,i){return itemEdit(it,i,d.items.length)}).join('')+'</ol>';
     h+='<div class="addrow">'+kindSel('id="addkind"','i')+'<button class="btn" data-act="add">＋ 新增項目</button></div>';
     d.tables.forEach(function(t,ti){h+=tableEdit(t,ti)});
     h+='<div class="addrow"><button class="btn" data-act="tnew">＋ 新增表格</button></div>';
     h+='<label class="fld sec"><span>🎫 交通及票券</span><textarea rows="3" data-f="transport">'+esc(d.transport)+'</textarea></label>'+
-       '<label class="fld"><span>🍽️ 午晚餐建議</span><textarea rows="3" data-f="meals">'+esc(d.meals)+'</textarea></label>';
+       '<label class="fld"><span>🍽️ 餐食</span><textarea rows="3" data-f="meals">'+esc(d.meals)+'</textarea></label>';
     h+='<div class="addrow" style="margin-top:28px"><button class="btn danger" data-act="daydel">🗑 刪除這一天</button></div>';
   }else{
     h+='<div class="dayhead"><div class="bigdate"><span class="n">'+md(d.date)+'</span><span class="chip">'+wd(d.date)+'</span>'+
@@ -1080,13 +1108,13 @@ function dayView(){
     h+='<ol class="tl">'+d.items.map(itemHtml).join('')+'</ol>';
     d.tables.forEach(function(t){h+=tableHtml(t)});
     if(d.transport)h+='<section class="sec"><h3>🎫 交通及票券</h3><div class="note">'+fmt(d.transport)+'</div></section>';
-    if(d.meals)h+='<section class="sec"><h3>🍽️ 午晚餐建議</h3><div class="note">'+fmt(d.meals)+'</div></section>';
+    if(d.meals)h+='<section class="sec"><h3>🍽️ 餐食</h3><div class="note">'+fmt(d.meals)+'</div></section>';
   }
   h+='</div>';
   var pv=data.days[idx-1],nx=data.days[idx+1];
   h+='<nav class="daynav"><div class="daynav-in">'+
     (pv?'<a href="#'+pv.date+'">← '+md(pv.date)+'</a>':'<span class="dis">←</span>')+
-    '<a class="mid" href="#">全部日期</a>'+
+    '<a class="mid" href="#">首頁</a>'+
     (nx?'<a href="#'+nx.date+'">'+md(nx.date)+' →</a>':'<span class="dis">→</span>')+'</div></nav>';
   return h;
 }
@@ -1131,7 +1159,7 @@ function importJson(){
       try{
         var o=JSON.parse(r.result);
         if(!o||!Array.isArray(o.days))throw new Error('format');
-        data=o;sortDays();save();cur='';location.hash='';render(false);toast('已匯入備份');
+        edit=false;snap=null;data=o;sortDays();persist();cur='';location.hash='';render(false);toast('已匯入備份');
       }catch(e){toast('匯入失敗：檔案格式不正確')}
     };
     r.readAsText(f);
@@ -1149,11 +1177,6 @@ app.addEventListener('input',function(e){
 });
 app.addEventListener('change',function(e){
   var el=e.target,a=el.dataset&&el.dataset.act;
-  if(a==='jump'){
-    if(!el.value)return;
-    if(data.days.some(function(d){return d.date===el.value}))location.hash='#'+el.value;
-    else toast('這一天沒有安排行程');
-  }
   if(a==='setdate'){
     var d=curDay(),v=el.value;
     if(!validId(v))return;
@@ -1167,7 +1190,18 @@ document.addEventListener('click',function(e){
   var a=b.dataset.act,d=curDay(),i=+b.dataset.i,t=+b.dataset.t,r=+b.dataset.r;
   var m=b.closest('details');if(m)m.open=false;
   switch(a){
-    case 'edit':edit=!edit;render(true);return;
+    case 'edit':snap=JSON.stringify(data);snapCur=cur;edit=true;render(true);return;
+    case 'done':edit=false;snap=null;persist();render(true);toast('已儲存');return;
+    case 'discard':{
+      var changed=JSON.stringify(data)!==snap;
+      if(changed&&!confirm('放棄這次編輯？尚未按「完成編輯」的變更都不會儲存。'))return;
+      if(changed)data=JSON.parse(snap);
+      edit=false;
+      if(cur&&!curDay()){cur=snapCur;if(cur&&!curDay())cur=''}
+      snap=null;
+      history.replaceState(null,'',cur?'#'+cur:location.pathname+location.search);
+      render(true);toast(changed?'已放棄這次編輯':'沒有任何變更');return;
+    }
     case 'up':if(i>0){var x=d.items[i];d.items[i]=d.items[i-1];d.items[i-1]=x}break;
     case 'down':if(i<d.items.length-1){var y=d.items[i];d.items[i]=d.items[i+1];d.items[i+1]=y}break;
     case 'del':d.items.splice(i,1);break;
@@ -1202,7 +1236,7 @@ document.addEventListener('click',function(e){
     case 'reset':
       if(!confirm('還原成網頁內建的預設內容？你在這個瀏覽器的修改會被清除。'))return;
       try{localStorage.removeItem(KEY)}catch(err){}
-      load();cur='';location.hash='';render(false);toast('已還原');return;
+      edit=false;snap=null;load();cur='';location.hash='';render(false);toast('已還原');return;
     default:return;
   }
   save();render(true);
@@ -1216,6 +1250,9 @@ document.addEventListener('keydown',function(e){
   if(n)location.hash='#'+n.date;
 });
 window.addEventListener('hashchange',route);
+window.addEventListener('beforeunload',function(e){
+  if(edit&&snap!==null&&JSON.stringify(data)!==snap){e.preventDefault();e.returnValue=''}
+});
 
 load();
 route();
